@@ -1,0 +1,55 @@
+name: OneAxisWithBrake
+board: esp32wroom
+
+
+spi:
+  miso_pin: gpio.19
+  mosi_pin: gpio.23
+  sck_pin: gpio.18
+
+sdcard:
+  cs_pin: gpio.5
+  card_detect_pin: NO_PIN
+  frequency_hz: 8000000
+
+stepping:
+  engine: BASIC
+  idle_ms: 255
+  pulse_us: 5
+  dir_delay_us: 1
+  disable_delay_us: 0
+
+
+
+# --- Axis Settings (Single Axis Machine) ---
+axes:
+  x:
+    steps_per_mm: 1280 
+    max_rate_mm_per_min: 1000 
+    acceleration_mm_per_sec2: 50
+    max_travel_mm: 10000
+    soft_limits: true
+    
+    motor0:
+      standard_stepper:
+        step_pin: gpio.26
+        direction_pin: gpio.27
+        disable_pin: gpio.25
+      limit_neg_pin: gpio.13:low:pu
+      hard_limits: true
+      pulloff_mm: 5
+      
+    homing:
+      cycle: 1
+      allow_single_axis: true
+      positive_direction: false
+      mpos_mm: 0
+      feed_mm_per_min: 100
+      seek_mm_per_min: 500
+      settle_ms: 250
+              
+user_outputs:
+  digital0_pin: gpio.33:high
+
+# control:
+#   cycle_start_pin: gpio.14:low:pu
